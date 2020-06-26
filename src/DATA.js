@@ -79,16 +79,6 @@ const DATA = {
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/tshirt.jpg?alt=media",
   },
-  aqC8sb: {
-    productId: "aqC8sb",
-    name: "Xiaomi TV",
-    description: "Mi4 32 inch color",
-    category: "electronics",
-    price: 11999,
-    quantity: 0,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/tv.jpg?alt=media",
-  },
 };
 
 export default DATA;
