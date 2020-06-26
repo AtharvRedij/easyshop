@@ -1,8 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import Homepage from "./pages/Homepage";
+import { handleReceiveProducts } from "./store/actions/products";
 
-function App() {
-  return <Homepage />;
+class App extends Component {
+  state = {};
+
+  componentDidMount() {
+    this.props.dispatch(handleReceiveProducts());
+  }
+
+  render() {
+    return <Homepage />;
+  }
 }
 
-export default App;
+export default connect()(App);

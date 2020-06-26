@@ -1,21 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import Product from "./Product";
 import "./ProductsList.css";
-import DATA from "../DATA";
 
-class ProductsList extends Component {
-  state = {};
-  render() {
-    const products = Object.values(DATA);
+const ProductsList = (props) => {
+  const products = Object.values(props.products);
 
-    return (
-      <div className="products-list__container">
-        {products.map((product) => (
-          <Product key={product.productId} product={product} />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="products-list__container">
+      {products.map((product) => (
+        <Product key={product.productId} product={product} />
+      ))}
+    </div>
+  );
+};
 
-export default ProductsList;
+const mapStateToProps = ({ products }) => {
+  return {
+    products,
+  };
+};
+
+export default connect(mapStateToProps)(ProductsList);
