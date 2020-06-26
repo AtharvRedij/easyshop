@@ -1,0 +1,22 @@
+.shipping-form__container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border: 2px solid green;
+  height: fit-content;
+  padding: 2em;
+}
+
+.shipping-form__container input {
+  margin-bottom: 1em;
+  padding: 0.5em 1em;
+}
+
+.shipping-form__container button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}

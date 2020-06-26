@@ -1,0 +1,7 @@
+.checkout__container {
+  border: 3px solid red;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}

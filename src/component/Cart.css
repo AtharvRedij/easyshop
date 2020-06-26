@@ -1,0 +1,13 @@
+.cart__container {
+  width: 70%;
+}
+
+.cart__container h2 {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid black;
+}
+
+.cart__container h2,
+.cart__container h3 {
+  margin-left: 3em;
+}

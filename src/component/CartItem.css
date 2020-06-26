@@ -1,0 +1,18 @@
+.cart-item__container {
+  display: flex;
+  align-items: center;
+  padding: 0.5em;
+  justify-content: space-evenly;
+}
+
+.cart-item__container img {
+  width: 6em;
+  height: 7em;
+}
+
+.cart-item__quantity-container {
+  display: flex;
+  border: 1px solid saddlebrown;
+  justify-content: space-evenly;
+  width: 10%;
+}

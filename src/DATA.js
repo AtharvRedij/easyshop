@@ -5,7 +5,7 @@ const DATA = {
     description: "Set of 6 harry potter books",
     category: "books",
     price: 3500,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/book.jpg?alt=media",
   },
@@ -15,7 +15,7 @@ const DATA = {
     description: "Nikon P500 with 30x Zoom",
     category: "electronics",
     price: 12000,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/camera.jpg?alt=media",
   },
@@ -25,7 +25,7 @@ const DATA = {
     description: "Very Comfortable chair",
     category: "furniture",
     price: 4999,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/chair.jpg?alt=media",
   },
@@ -35,7 +35,7 @@ const DATA = {
     description: "16GB RAM, 256GB SSD",
     category: "electronics",
     price: 50000,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/macbook.jpg?alt=media",
   },
@@ -45,7 +45,7 @@ const DATA = {
     description: "128GB Perl White",
     category: "electronics",
     price: 30000,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/mobile.jpg?alt=media",
   },
@@ -55,7 +55,7 @@ const DATA = {
     description: "Comfortable walking shoes",
     category: "clothing",
     price: 2200,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/shoes.jpg?alt=media",
   },
@@ -65,7 +65,7 @@ const DATA = {
     description: "Generic Teddy Bear",
     category: "toys",
     price: 499,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/teddybear.jpg?alt=media",
   },
@@ -75,7 +75,7 @@ const DATA = {
     description: "Cotton 90cm",
     category: "clothing",
     price: 1500,
-    quantity: 0,
+    itemsInStock: 0,
     imageUrl:
       "https://firebasestorage.googleapis.com/v0/b/easyshop-5e794.appspot.com/o/tshirt.jpg?alt=media",
   },
