@@ -23,7 +23,7 @@ export const removeItemFromCart = (productId) => {
 export const increaseItemQuantity = (productId) => addItemToCart(productId);
 
 export const decreaseItemQuantity = (productId, quantity) => {
-  if (quantity == 1) {
+  if (quantity === 1) {
     return removeItemFromCart(productId);
   } else {
     return {

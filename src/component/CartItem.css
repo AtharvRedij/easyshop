@@ -37,4 +37,8 @@
   .cart-item__image {
     height: 5em;
   }
+
+  .cart-item__quantity-container {
+    width: 20%;
+  }
 }
