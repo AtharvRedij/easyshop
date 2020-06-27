@@ -5,14 +5,28 @@
   justify-content: space-evenly;
 }
 
-.cart-item__container img {
-  width: 6em;
+.cart-item__image {
   height: 7em;
+  width: 12%;
+}
+
+.cart-item__name {
+  width: 20%;
 }
 
 .cart-item__quantity-container {
+  border: 1px solid black;
   display: flex;
-  border: 1px solid saddlebrown;
   justify-content: space-evenly;
   width: 10%;
+}
+
+.cart-item__total-price {
+  width: 10%;
+}
+
+@media only screen and (max-width: 500px) {
+  .cart-item__image {
+    height: 5em;
+  }
 }
