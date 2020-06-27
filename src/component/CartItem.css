@@ -19,6 +19,14 @@
   display: flex;
   justify-content: space-evenly;
   width: 10%;
+  align-items: center;
+}
+
+.cart-item__quantity-decrease,
+.cart-item__quantity-increase {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .cart-item__total-price {

@@ -1,4 +1,8 @@
-import { ADD_ITEM_TO_CART } from "../actions/cart";
+import {
+  ADD_ITEM_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  DECREASE_ITEM_QUANTITY,
+} from "../actions/cart";
 
 const cart = (state = {}, action) => {
   switch (action.type) {
@@ -9,6 +13,21 @@ const cart = (state = {}, action) => {
           quantity: state[action.payload.productId]
             ? state[action.payload.productId].quantity + 1
             : 1,
+        },
+      };
+
+    case REMOVE_ITEM_FROM_CART:
+      const {
+        [action.payload.productId]: itemToRemove,
+        ...updatedCart
+      } = state;
+      return updatedCart;
+
+    case DECREASE_ITEM_QUANTITY:
+      return {
+        ...state,
+        [action.payload.productId]: {
+          quantity: state[action.payload.productId].quantity - 1,
         },
       };
 
