@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../component/Navbar";
 import ProductsList from "../component/ProductsList";
 import "./Homepage.css";
 
@@ -8,7 +7,6 @@ class Homepage extends Component {
   render() {
     return (
       <div className="homepage__container">
-        <Navbar />
         <ProductsList />
       </div>
     );
