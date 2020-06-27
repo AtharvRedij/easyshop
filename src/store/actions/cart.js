@@ -1,6 +1,9 @@
+import { placeOrder } from "./../../utils/API";
+
 export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
 export const DECREASE_ITEM_QUANTITY = "DECREASE_ITEM_QUANTITY";
+export const CLEAR_CART = "CLEAR_CART";
 
 export const addItemToCart = (productId) => {
   return {
@@ -33,4 +36,19 @@ export const decreaseItemQuantity = (productId, quantity) => {
       },
     };
   }
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART,
+  };
+};
+
+// this function calls API
+export const handlePlaceOrder = (userInfo, cart) => {
+  return (dispatch) => {
+    return placeOrder(userInfo, cart).then(() => {
+      dispatch(clearCart());
+    });
+  };
 };

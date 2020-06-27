@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -32,7 +33,28 @@ export const getAllProducts = async () => {
       querySnapshot.forEach((doc) => {
         products[doc.id] = doc.data();
       });
+    })
+    .catch((error) => {
+      toast.error("Some error occurred while fetching products");
+      console.error("Error fetching products: ", error);
     });
 
   return products;
+};
+
+// save an order to orders collection
+export const placeOrder = async (userInfo, cart) => {
+  await db
+    .collection(ORDERS_COLLECTION_NAME)
+    .add({
+      cart,
+      userInfo,
+    })
+    .then((docRef) => {
+      toast.success("Order Placed");
+    })
+    .catch((error) => {
+      toast.error("Some error occurred while placing order");
+      console.error("Error adding document: ", error);
+    });
 };

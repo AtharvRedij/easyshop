@@ -2,6 +2,7 @@ import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
   DECREASE_ITEM_QUANTITY,
+  CLEAR_CART,
 } from "../actions/cart";
 
 const cart = (state = {}, action) => {
@@ -30,6 +31,9 @@ const cart = (state = {}, action) => {
           quantity: state[action.payload.productId].quantity - 1,
         },
       };
+
+    case CLEAR_CART:
+      return {};
 
     default:
       return state;
