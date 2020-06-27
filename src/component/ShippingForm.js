@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { handlePlaceOrder } from "../store/actions/cart";
 import "./ShippingForm.css";
@@ -22,13 +23,47 @@ class ShippingForm extends Component {
     this.setState({ data });
   };
 
+  validate = (userInfo, cart) => {
+    // check if cart is empty
+    if (Object.keys(cart).length === 0) {
+      toast.error("Cart is empty");
+      return false;
+    }
+
+    // check if any of the values for user info is empty
+    const values = Object.values(userInfo);
+    for (let i = 0; i < values.length; i++) {
+      if (values[i].trim() === "") {
+        toast.error("Information is incomplete");
+        return false;
+      }
+    }
+
+    // check if email is valid
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(String(userInfo.email).toLowerCase())) {
+      toast.error("Invalid email");
+      return false;
+    }
+
+    // check if pincode is a number
+    if (isNaN(userInfo.zipcode) || userInfo.zipcode.length < 6) {
+      toast.error("Invalid zipcode");
+      return false;
+    }
+
+    return true;
+  };
+
   handleSubmit = () => {
     const { cart, dispatch } = this.props;
     const userInfo = this.state.data;
 
-    dispatch(handlePlaceOrder(userInfo, cart));
+    if (this.validate(userInfo, cart)) {
+      dispatch(handlePlaceOrder(userInfo, cart));
 
-    this.props.history.replace("/");
+      this.props.history.replace("/");
+    }
   };
 
   render() {
