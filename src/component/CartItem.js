@@ -1,12 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import {
   increaseItemQuantity,
   decreaseItemQuantity,
 } from "../store/actions/cart";
 import "./CartItem.css";
 
-const CartItem = ({ productId, name, imageUrl, quantity, price, dispatch }) => {
+const CartItem = ({
+  productId,
+  name,
+  imageUrl,
+  quantity,
+  itemsInStock,
+  price,
+  dispatch,
+}) => {
   return (
     <div className="cart-item__container">
       <img className="cart-item__image" src={imageUrl} alt={name} />
@@ -21,7 +30,13 @@ const CartItem = ({ productId, name, imageUrl, quantity, price, dispatch }) => {
         <div>{quantity}</div>
         <div
           className="cart-item__quantity-increase"
-          onClick={() => dispatch(increaseItemQuantity(productId))}
+          onClick={() => {
+            if (quantity < itemsInStock) {
+              dispatch(increaseItemQuantity(productId));
+            } else {
+              toast.info(`Only ${itemsInStock} items in stock`);
+            }
+          }}
         >
           +
         </div>

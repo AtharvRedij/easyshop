@@ -16,6 +16,7 @@ const Cart = (props) => {
           name={item.name}
           imageUrl={item.imageUrl}
           quantity={item.quantity}
+          itemsInStock={item.itemsInStock}
           price={item.price}
         />
       ))}
@@ -36,7 +37,7 @@ const mapStateToProps = ({ products, cart }) => {
   for (let i = 0; i < items.length; i++) {
     const productId = itemIDs[i];
     const quantity = items[i].quantity;
-    const { name, imageUrl, price } = products[productId];
+    const { name, imageUrl, price, itemsInStock } = products[productId];
 
     itemCount += quantity;
     totalPrice += quantity * price;
@@ -46,6 +47,7 @@ const mapStateToProps = ({ products, cart }) => {
       imageUrl,
       quantity,
       price,
+      itemsInStock,
     });
   }
 

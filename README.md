@@ -23,13 +23,17 @@ Run following command to build.
 ### products
 
 stores all the products with their information
+
 read - user & admin
+
 write - admin
 
 ### orders
 
 store all the orders
+
 read - admin
+
 write - user can only add, admin has all writes permission
 
 ## Features to add
@@ -39,6 +43,6 @@ write - user can only add, admin has all writes permission
     2.  admin can add items to stock
     3.  admin can add new products
 2.  Sign in for customers (users) so they can save cart items and view past orders.
-3.  Check if qunatity is available in stock before placing an order.
-4.  Search product by name
-5.  Search & group products by category
+3.  Search product by name
+4.  Search & group products by category
+5.  Persist state between tabs and page refresh
