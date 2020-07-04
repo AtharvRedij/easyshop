@@ -56,27 +56,33 @@ export const populateCart = (cart) => {
   };
 };
 
-// these function calls API
-export const handleAddItemToCart = (productId, uid) => {
+// these function calls API with optimistic updates pattern
+export const handleAddItemToCart = (productId, uid, quantity) => {
   return (dispatch) => {
-    return addItemToCartInDB(productId, uid, 1).then(() => {
-      dispatch(addItemToCart(productId));
+    dispatch(addItemToCart(productId));
+    return addItemToCartInDB(productId, uid, 1).catch((error) => {
+      dispatch(decreaseItemQuantity(productId, quantity));
+      console.log(error);
     });
   };
 };
 
 export const handleDecreaseItemQuantity = (productId, uid, quantity) => {
   return (dispatch) => {
-    return decreaseItemFromCartInDB(productId, uid, quantity).then(() => {
-      dispatch(decreaseItemQuantity(productId, quantity));
+    dispatch(decreaseItemQuantity(productId, quantity));
+    return decreaseItemFromCartInDB(productId, uid, quantity).catch((error) => {
+      dispatch(addItemToCart(productId));
+      console.log(error);
     });
   };
 };
 
 export const handlePlaceOrder = (shippingInfo, cart, uid) => {
   return (dispatch) => {
-    return placeOrder(shippingInfo, cart, uid).then(() => {
-      dispatch(clearCart());
+    dispatch(clearCart());
+    return placeOrder(shippingInfo, cart, uid).catch((error) => {
+      dispatch(populateCart(cart));
+      console.log(error);
     });
   };
 };

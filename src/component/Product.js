@@ -16,7 +16,7 @@ const Product = (props) => {
           className="product__add-to-cart"
           onClick={() => {
             if (quantity < itemsInStock) {
-              props.dispatch(handleAddItemToCart(productId, uid));
+              props.dispatch(handleAddItemToCart(productId, uid, quantity));
             } else {
               toast.info(`Only ${itemsInStock} items in stock`);
             }
