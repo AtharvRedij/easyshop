@@ -73,9 +73,9 @@ export const handleDecreaseItemQuantity = (productId, uid, quantity) => {
   };
 };
 
-export const handlePlaceOrder = (userInfo, cart) => {
+export const handlePlaceOrder = (shippingInfo, cart, uid) => {
   return (dispatch) => {
-    return placeOrder(userInfo, cart).then(() => {
+    return placeOrder(shippingInfo, cart, uid).then(() => {
       dispatch(clearCart());
     });
   };

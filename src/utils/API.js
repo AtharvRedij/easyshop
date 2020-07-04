@@ -153,18 +153,23 @@ export const decreaseItemFromCartInDB = async (productId, uid, quantity) => {
 };
 
 // save an order to orders collection
-export const placeOrder = async (userInfo, cart) => {
-  await db
-    .collection(ORDERS_COLLECTION_NAME)
-    .add({
+export const placeOrder = async (shippingInfo, cart, uid) => {
+  try {
+    // add order to orders collection
+    await db.collection(ORDERS_COLLECTION_NAME).add({
       cart,
-      userInfo,
-    })
-    .then((docRef) => {
-      toast.success("Order Placed");
-    })
-    .catch((error) => {
-      toast.error("Some error occurred while placing order");
-      console.error("Error adding document: ", error);
+      shippingInfo,
+      userId: uid,
     });
+
+    // clear cart from user document
+    await db.collection(USERS_COLLECTION_NAME).doc(uid).update({
+      cart: {},
+    });
+
+    toast.success("Order Placed");
+  } catch (error) {
+    toast.error("Some error occurred while placing order");
+    console.error("Error adding document: ", error);
+  }
 };

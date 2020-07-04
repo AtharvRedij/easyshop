@@ -23,7 +23,7 @@ class ShippingForm extends Component {
     this.setState({ data });
   };
 
-  validate = (userInfo, cart) => {
+  validate = (shippingInfo, cart) => {
     // check if cart is empty
     if (Object.keys(cart).length === 0) {
       toast.error("Cart is empty");
@@ -31,7 +31,7 @@ class ShippingForm extends Component {
     }
 
     // check if any of the values for user info is empty
-    const values = Object.values(userInfo);
+    const values = Object.values(shippingInfo);
     for (let i = 0; i < values.length; i++) {
       if (values[i].trim() === "") {
         toast.error("Information is incomplete");
@@ -41,13 +41,13 @@ class ShippingForm extends Component {
 
     // check if email is valid
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(userInfo.email).toLowerCase())) {
+    if (!re.test(String(shippingInfo.email).toLowerCase())) {
       toast.error("Invalid email");
       return false;
     }
 
     // check if pincode is a number
-    if (isNaN(userInfo.zipcode) || userInfo.zipcode.length < 6) {
+    if (isNaN(shippingInfo.zipcode) || shippingInfo.zipcode.length < 6) {
       toast.error("Invalid zipcode");
       return false;
     }
@@ -56,11 +56,11 @@ class ShippingForm extends Component {
   };
 
   handleSubmit = () => {
-    const { cart, dispatch } = this.props;
-    const userInfo = this.state.data;
+    const { cart, uid, dispatch } = this.props;
+    const shippingInfo = this.state.data;
 
-    if (this.validate(userInfo, cart)) {
-      dispatch(handlePlaceOrder(userInfo, cart));
+    if (this.validate(shippingInfo, cart)) {
+      dispatch(handlePlaceOrder(shippingInfo, cart, uid));
 
       this.props.history.replace("/");
     }
@@ -134,9 +134,10 @@ class ShippingForm extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = ({ cart, user }) => {
   return {
     cart,
+    uid: user.uid,
   };
 };
 
