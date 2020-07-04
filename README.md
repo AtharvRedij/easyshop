@@ -32,9 +32,17 @@ write - admin
 
 store all the orders
 
-read - admin
+read - user can read only his orders, admin has full access
 
 write - user can only add, admin has all writes permission
+
+### users
+
+stores the user document along with their cart. When order is placed this cart is moved to orders collection.
+
+read - user can read only his document
+
+write - user can write to only his document
 
 ## Features to add
 
@@ -42,7 +50,9 @@ write - user can only add, admin has all writes permission
     1.  admin can view all orders
     2.  admin can add items to stock
     3.  admin can add new products
-2.  Sign in for customers (users) so they can save cart items and view past orders.
-3.  Search product by name
-4.  Search & group products by category
-5.  Persist state between tabs and page refresh
+2.  Search product by name
+3.  Search & group products by category
+
+## Known issues
+
+1. If items are added to cart too fast i.e. double click, item gets added twice in redux store but only once in firestore.
