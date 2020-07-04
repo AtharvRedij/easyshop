@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
 
 export const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,11 +17,64 @@ export const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
+export const auth = firebase.auth();
+
+const provider = new firebase.auth.GoogleAuthProvider();
 
 export default firebase;
 
 export const PRODUCTS_COLLECTION_NAME = "products";
 export const ORDERS_COLLECTION_NAME = "orders";
+export const USERS_COLLECTION_NAME = "users";
+
+// signs in user using google acccount
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+// signs out the user
+export const signOut = () => auth.signOut();
+
+// creates user profile document in firestore
+export const createUserProfileDocument = async (user, additionalData) => {
+  if (!user) return;
+
+  const userRef = db.collection(USERS_COLLECTION_NAME).doc(user.uid);
+
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { email, displayName, photoURL } = user;
+
+    try {
+      await userRef.set({
+        email,
+        displayName,
+        photoURL,
+        cart: {},
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return getUserDocument(user.uid);
+};
+
+// fetches user profile document from firestore
+export const getUserDocument = async (uid) => {
+  if (!uid) return null;
+
+  try {
+    const userDoc = await db.collection(USERS_COLLECTION_NAME).doc(uid).get();
+
+    return {
+      uid,
+      ...userDoc.data(),
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // fetches all products
 export const getAllProducts = async () => {

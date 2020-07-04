@@ -6,13 +6,31 @@ import Navbar from "./component/Navbar";
 import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import { handleReceiveProducts } from "./store/actions/products";
+import { userSignIn, userSignOut } from "./store/actions/user";
+import { auth, createUserProfileDocument } from "./utils/API";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {};
 
-  componentDidMount() {
+  unsubscribeFromAuth = null;
+
+  async componentDidMount() {
     this.props.dispatch(handleReceiveProducts());
+
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      const user = await createUserProfileDocument(userAuth);
+
+      if (user) {
+        this.props.dispatch(userSignIn(user));
+      } else {
+        this.props.dispatch(userSignOut());
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
   }
 
   render() {
