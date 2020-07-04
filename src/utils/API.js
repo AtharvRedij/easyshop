@@ -49,6 +49,7 @@ export const createUserProfileDocument = async (user, additionalData) => {
         email,
         displayName,
         photoURL,
+        isAdmin: false,
         cart: {},
         ...additionalData,
       });
@@ -94,6 +95,61 @@ export const getAllProducts = async () => {
     });
 
   return products;
+};
+
+// adds items to cart in user document in cloud firestore
+export const addItemToCartInDB = async (productId, uid) => {
+  const userDocRef = db.collection(USERS_COLLECTION_NAME).doc(uid);
+
+  try {
+    const userDocSnapShot = await userDocRef.get();
+    const userDoc = userDocSnapShot.data();
+
+    const { cart } = userDoc;
+
+    userDocRef.update({
+      cart: {
+        ...cart,
+        [productId]: {
+          quantity: cart && cart[productId] ? cart[productId].quantity + 1 : 1,
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// decreses items from cart in user document in cloud firestore
+export const decreaseItemFromCartInDB = async (productId, uid, quantity) => {
+  const userDocRef = db.collection(USERS_COLLECTION_NAME).doc(uid);
+
+  try {
+    const userDocSnapShot = await userDocRef.get();
+    const userDoc = userDocSnapShot.data();
+
+    const { cart } = userDoc;
+
+    if (quantity === 1) {
+      const { [productId]: itemToRemove, ...updatedCart } = cart;
+      userDocRef.update({
+        cart: {
+          ...updatedCart,
+        },
+      });
+    } else {
+      userDocRef.update({
+        cart: {
+          ...cart,
+          [productId]: {
+            quantity: cart[productId].quantity - 1,
+          },
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // save an order to orders collection

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { addItemToCart } from "../store/actions/cart";
+import { handleAddItemToCart } from "../store/actions/cart";
 import "./Product.css";
 
 const Product = (props) => {
   const { productId, name, price, imageUrl, itemsInStock } = props.product;
-  const { quantity } = props;
+  const { quantity, uid } = props;
 
   return (
     <div className="product__container">
@@ -16,7 +16,7 @@ const Product = (props) => {
           className="product__add-to-cart"
           onClick={() => {
             if (quantity < itemsInStock) {
-              props.dispatch(addItemToCart(productId));
+              props.dispatch(handleAddItemToCart(productId, uid));
             } else {
               toast.info(`Only ${itemsInStock} items in stock`);
             }
@@ -33,9 +33,10 @@ const Product = (props) => {
   );
 };
 
-const mapStateToProps = ({ cart }, { product }) => {
+const mapStateToProps = ({ cart, user }, { product }) => {
   return {
     quantity: cart[product.productId] ? cart[product.productId].quantity : 0,
+    uid: user.uid,
   };
 };
 

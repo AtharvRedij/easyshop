@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
-  increaseItemQuantity,
-  decreaseItemQuantity,
+  handleAddItemToCart,
+  handleDecreaseItemQuantity,
 } from "../store/actions/cart";
 import "./CartItem.css";
 
@@ -14,6 +14,7 @@ const CartItem = ({
   quantity,
   itemsInStock,
   price,
+  uid,
   dispatch,
 }) => {
   return (
@@ -23,7 +24,9 @@ const CartItem = ({
       <div className="cart-item__quantity-container">
         <div
           className="cart-item__quantity-decrease"
-          onClick={() => dispatch(decreaseItemQuantity(productId, quantity))}
+          onClick={() =>
+            dispatch(handleDecreaseItemQuantity(productId, uid, quantity))
+          }
         >
           -
         </div>
@@ -32,7 +35,7 @@ const CartItem = ({
           className="cart-item__quantity-increase"
           onClick={() => {
             if (quantity < itemsInStock) {
-              dispatch(increaseItemQuantity(productId));
+              dispatch(handleAddItemToCart(productId, uid));
             } else {
               toast.info(`Only ${itemsInStock} items in stock`);
             }
@@ -47,4 +50,10 @@ const CartItem = ({
   );
 };
 
-export default connect()(CartItem);
+const mapStateToProps = ({ user }) => {
+  return {
+    uid: user.uid,
+  };
+};
+
+export default connect(mapStateToProps)(CartItem);

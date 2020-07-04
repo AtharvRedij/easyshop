@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM_FROM_CART,
   DECREASE_ITEM_QUANTITY,
   CLEAR_CART,
+  POPULATE_CART,
 } from "../actions/cart";
 
 const cart = (state = {}, action) => {
@@ -34,6 +35,9 @@ const cart = (state = {}, action) => {
 
     case CLEAR_CART:
       return {};
+
+    case POPULATE_CART:
+      return action.payload.cart;
 
     default:
       return state;
