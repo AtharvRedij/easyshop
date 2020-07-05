@@ -35,7 +35,11 @@ const CartItem = ({
           className="cart-item__quantity-increase"
           onClick={() => {
             if (quantity < itemsInStock) {
-              dispatch(handleAddItemToCart(productId, uid, quantity));
+              if (uid) {
+                dispatch(handleAddItemToCart(productId, uid, quantity));
+              } else {
+                toast.info("Please sign in first");
+              }
             } else {
               toast.info(`Only ${itemsInStock} items in stock`);
             }

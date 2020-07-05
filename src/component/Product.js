@@ -6,7 +6,7 @@ import "./Product.css";
 
 const Product = (props) => {
   const { productId, name, price, imageUrl, itemsInStock } = props.product;
-  const { quantity, uid } = props;
+  const { quantity, uid, dispatch } = props;
 
   return (
     <div className="product__container">
@@ -16,7 +16,11 @@ const Product = (props) => {
           className="product__add-to-cart"
           onClick={() => {
             if (quantity < itemsInStock) {
-              props.dispatch(handleAddItemToCart(productId, uid, quantity));
+              if (uid) {
+                dispatch(handleAddItemToCart(productId, uid, quantity));
+              } else {
+                toast.info("Please sign in first");
+              }
             } else {
               toast.info(`Only ${itemsInStock} items in stock`);
             }

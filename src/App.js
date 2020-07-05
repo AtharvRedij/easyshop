@@ -7,7 +7,7 @@ import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import { handleReceiveProducts } from "./store/actions/products";
 import { userSignIn, userSignOut } from "./store/actions/user";
-import { populateCart } from "./store/actions/cart";
+import { populateCart, clearCart } from "./store/actions/cart";
 import { auth, createUserProfileDocument } from "./utils/API";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -27,6 +27,7 @@ class App extends Component {
         this.props.dispatch(populateCart(user.cart));
       } else {
         this.props.dispatch(userSignOut());
+        this.props.dispatch(clearCart());
       }
     });
   }
